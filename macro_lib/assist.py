@@ -35,7 +35,7 @@ def _ask_for_one_(prompt, class_type):
         if (type(arg) == class_type):
             return arg
         else:
-            print(f"you have entered a {str(type(arg))} but the argument requires is {class_type}\n")
+            print(f"you have entered a {str(type(arg))} but the argument required is {class_type}\n")
 
 '''
 Ask the user for more than inputs, which serve as a list of arguments 
