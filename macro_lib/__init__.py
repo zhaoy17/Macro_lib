@@ -6,5 +6,5 @@ try:
 	import pandas
 except:
 	raise ImportError("pandas is needed for the library to function")
-import assist
-import plot_helper
+from .assist import *
+from .plot_helper import *

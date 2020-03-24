@@ -5,9 +5,7 @@ Give a brief introduction to the functionality of this package. Ultimately,
 we should have the introductory text written in a seperate text file
 '''
 def introduce():
-    return "A python library aim to provide computational tools \
-            for Macroeconomics Models. Currently, we are still in the \
-            planning phase."
+    return "A python library aim to provide computational tools for Macroeconomics Models. Currently, we are still in the planning phase."
 
 '''
 Return the version of the library
@@ -56,5 +54,3 @@ def _ask_(prompts, class_type_list):
                 return None
             output.append(arg)
         return output
-
-
