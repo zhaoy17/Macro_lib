@@ -85,7 +85,7 @@ class DataQuery:
     More Info At: https://research.stlouisfed.org/docs/api/fred/category.html
     '''
     def _parse_request(self, params, directory):
-        params = parse.urlencode(dict)
+        params = parse.urlencode(params)
         url = f"{self.__HTTP__}{directory}?{params}"
         return url
 
