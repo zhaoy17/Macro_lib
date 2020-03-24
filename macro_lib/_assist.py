@@ -47,9 +47,9 @@ that will be passed into the function that calls this method. It calls
 def _ask_(prompts, class_type_list):
     #check to make sure the arguments are valid
     if type(prompts) != type (list()) or type (class_type_list) != type(list()):
-        raise AttributeError("arguments must be a list")
+        raise ValueError("arguments must be a list")
     if len(prompts) != len(class_type_list):
-        raise AttributeError("there should be an equal number of prompts and argument types")
+        raise ValueError("there should be an equal number of prompts and argument types")
     else:
         output = []
         for i in range(len(prompts)):
