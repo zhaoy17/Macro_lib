@@ -23,19 +23,21 @@ the user for input and then check whther the input is valid
 def _ask_for_one_(prompt, class_type):
     while True:
         user_input = input(str(prompt) + '\n').strip()
-        if (user_input.lower == "quit()"):
+        if (user_input.lower() == "quit()"):
             return None
         #check to make sure the expression is valid
         try:
             arg = eval(user_input)
         except:
             print("Invalid expression. Please check your input again.")
+            print("--------------------------------------------------")
             continue
         #check to make sure the expression matches with the expected argument type
         if (type(arg) == class_type):
             return arg
         else:
-            print(f"you have entered a {str(type(arg))} but the argument required is {class_type}\n")
+            print(f"you have entered a {str(type(arg))} but the argument required is {class_type}")
+            print("---------------------------------------------------------------------------------")
 
 '''
 Ask the user for more than inputs, which serve as a list of arguments 
