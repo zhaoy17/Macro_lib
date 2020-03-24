@@ -1,0 +1,4 @@
+Welcome to macro_lib, a python library aims to provide computational tools for macroeconomics models. Right now, the project is still in the planning stage. However, we plan on having the following subpackages: 
+
+1) macro_lib.growth
+2) macro_lib.time_series

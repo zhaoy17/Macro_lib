@@ -5,13 +5,14 @@ Give a brief introduction to the functionality of this package. Ultimately,
 we should have the introductory text written in a seperate text file
 '''
 def introduce():
-    return "A python library aim to provide computational tools for Macroeconomics Models. Currently, we are still in the planning phase."
+    with open(".intro.txt") as f:
+        print(f.read())
 
 '''
 Return the version of the library
 '''
 def version():
-    return "1.0"
+    print("1.0")
 
 '''
 Ask the user for appropriate input, which serves as the argument 
