@@ -1,11 +1,12 @@
 #module consists of functions aim to enable easy access to the library's functionality
+from pathlib import Path
 
 '''
-Give a brief introduction to the functionality of this package. Ultimately,
-we should have the introductory text written in a seperate text file
+Give a brief introduction to the functionality of this package. Load the 
+text from the hidden file
 '''
 def introduce():
-    with open(".intro.txt") as f:
+    with open(Path(__file__).parent / ".intro.txt") as f:
         print(f.read())
 
 '''
