@@ -5,6 +5,7 @@ the Federal Reserve Bank of St. Louis API
 from urllib import request
 from urllib import error
 from urllib import parse
+import json
 import numpy as np
 import pandas as pd
 
@@ -12,6 +13,8 @@ class DataQuery:
     '''
     __API_KEY__: the unique api_key for our application; this is needed for pulling GET Request
     __HTTP__:    Path to the source on Web Server
+    __current__: the most recent requested list of categories 
+    __history__: a stack that allows user to go back to their previously request list of categories
     '''
     def __init__(self):
         self.__API_KEY__ = "4f96326c4128a0f9e5a951bd674b6b61"
@@ -23,9 +26,11 @@ class DataQuery:
             'Production & Business Activity' : 1,
             'Prices' : 32455,
             'International Data' : 32263,
-            'Regional Data' : 3008 ,
+            'US Regional Data' : 3008 ,
             'Academic Data' : 33060
         }
+        self.__current__ = self.__CATEGORIES__
+        self.__history__ = list()  
 
     '''
     this method should return the url for GET request given the parameters
@@ -85,9 +90,65 @@ class DataQuery:
     More Info At: https://research.stlouisfed.org/docs/api/fred/category.html
     '''
     def _parse_request(self, params, directory):
+        params['api_key'] = self.__API_KEY__
+        params['file_type'] = 'json'
         params = parse.urlencode(params)
         url = f"{self.__HTTP__}{directory}?{params}"
         return url
+
+    '''
+    return a list of category user can navigate to
+    '''
+    def get(self):
+        return sorted(self.__current__)
+
+    '''
+    Navigate to one of the categories of data
+  
+    Parameters:
+        * selection:  the index of the category the user choose to navigate to
+        * assist:     optional parameter, if true get the argument through prompts
+   
+    Returns:
+        * the selected category's child
+
+    Example:
+        go_to('US Regional Data') should return:
+        [States, BEA Regions, BLS Regions, Federal Reserve Districts, Freddie Mac Regions]
+        in sorted order
+    '''
+    def go_to(self, selection, assist = False):
+        if type(selection) == type(5):
+            if selection - 1 >= len(self.get()):
+                raise IndexError("Attempt to go to a non-exisiting category")
+            selection = self.get()[selection - 1]
+        elif type(selection) != type(""):
+            raise ValueError("selection must be either a string or an index")
+        if selection not in self.__current__.keys():
+            raise ValueError("Attempt to go to a non-exisiting category")
+        url = self._parse_request({'category id' : self.__current__[selection]}, "fred/category/children")        
+        try:
+            data = request.urlopen(url).read()
+            data = json.loads(data)['categories']
+        except:
+            raise ConnectionError("HTTP Request was not successful")
+        self.__history__.append(self.__current__)
+        self.__current__ = dict(zip([e['name'] for e in data], [d['id'] for d in data]))
+        return self.get()
+
+    '''
+    Navigate back and return the category's parent
+    '''
+    def go_back(self):
+        if len(self.__history__) != 0:
+            self.__current__ = self.__history__.pop()
+        return self.get()
+
+
+
+
+
+
 
 
     
