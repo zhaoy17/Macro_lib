@@ -2,6 +2,7 @@
 Provides functionality which allows easy access to the macroeconomic data through 
 the Federal Reserve Bank of St. Louis API
 '''
+from macro_lib import _assist
 from urllib import request
 from urllib import error
 from urllib import parse
@@ -117,7 +118,17 @@ class DataQuery:
         [States, BEA Regions, BLS Regions, Federal Reserve Districts, Freddie Mac Regions]
         in sorted order
     '''
-    def go_to(self, selection, assist = False):
+    def go_to(self, selection = None, assist = False):
+        if assist:
+            prompt = "Please choose from one of the following categories to navigate into:\n--------------------------------------------------------------------\n"
+            categories = list(self.get())
+            for category in categories:
+                prompt += (category + "\n")
+            selection = _assist._ask_for_one_(prompt, type(""))
+            if (selection == None):
+                return
+        elif selection == None:
+            raise ValueError("selection must be either a string or an index")
         if type(selection) == type(5):
             if selection - 1 >= len(self.get()):
                 raise IndexError("Attempt to go to a non-exisiting category")

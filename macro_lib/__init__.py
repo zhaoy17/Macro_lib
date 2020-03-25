@@ -8,3 +8,4 @@ except:
 	raise ImportError("pandas is needed for the library to function")
 from ._assist import introduce
 from ._assist import version
+from ._fed_api import DataQuery

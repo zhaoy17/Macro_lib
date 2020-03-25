@@ -22,18 +22,30 @@ the user for input and then check whther the input is valid
 '''
 def _ask_for_one_(prompt, class_type):
     while True:
-        user_input = input(str(prompt) + '\n').strip()
+        print(prompt)
+        user_input = input("").strip()
         if (user_input.lower() == "quit()"):
             return None
         #check to make sure the expression is valid
         try:
             arg = eval(user_input)
         except:
-            print("Invalid expression. Please check your input again.")
-            print("--------------------------------------------------")
-            continue
+            #try adding quotation mark
+            if class_type == type(""):
+                user_input = '"' + user_input + '"'
+                try:
+                    arg = eval(user_input)
+                except:
+                    print("Invalid expression. Please check your input again.")
+                    print("--------------------------------------------------")
+                    continue                    
+            else:
+                print("Invalid expression. Please check your input again.")
+                print("--------------------------------------------------")
+                continue
         #check to make sure the expression matches with the expected argument type
         if (type(arg) == class_type):
+            print("\nPlease wait...\n")
             return arg
         else:
             print(f"you have entered a {str(type(arg))} but the argument required is {class_type}")
