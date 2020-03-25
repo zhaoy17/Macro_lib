@@ -154,12 +154,4 @@ class DataQuery:
         if len(self.__history__) != 0:
             self.__current__ = self.__history__.pop()
         return self.get()
-
-
-
-
-
-
-
-
-    
+   
