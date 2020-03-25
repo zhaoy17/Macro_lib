@@ -33,12 +33,7 @@ def _ask_for_one_(prompt, class_type):
             #try adding quotation mark
             if class_type == type(""):
                 user_input = '"' + user_input + '"'
-                try:
-                    arg = eval(user_input)
-                except:
-                    print("Invalid expression. Please check your input again.")
-                    print("--------------------------------------------------")
-                    continue                    
+                arg = eval(user_input)                   
             else:
                 print("Invalid expression. Please check your input again.")
                 print("--------------------------------------------------")
