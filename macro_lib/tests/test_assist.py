@@ -6,10 +6,10 @@ def testAskOnce():
     print("Start testing _ask_for_one()")
     print("----------------------------------------------------------------------")    
     output = a._ask_for_one_("This is a test. You can entered what ever you want," 
-        + " but it has to be a string. "
-        + "First try entering a non-string and see if the system"
+        + " but it has to be a list. "
+        + "First try entering a non-list and see if the system"
         + " prompt return any error, "
-        + "next try entering a string", type(""))
+        + "next try entering a string", type([]))
     if output == None:
         print ("quit function is working properly")
         print("--------------------------------")
