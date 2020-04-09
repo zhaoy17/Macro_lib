@@ -105,21 +105,21 @@ class solow:
             if (len(vars) != 8):
                 raise ValueError('You must enter the following arguments: A, k0, delta, s, n, alpha, t0, tmax')
             else:
-                self.A = self.setA(vars[0])
-                self.k0 = self.setK0(vars[1])
-                self.delta = self.setDelta(vars[2])
-                self.s = self.setS(vars[3])
-                self.n = self.setN(vars[4])
-                self.alpha = self.setAlpha(vars[5])
+                self.setA(vars[0])
+                self.setK0(vars[1])
+                self.setDelta(vars[2])
+                self.setS(vars[3])
+                self.setN(vars[4])
+                self.setAlpha(vars[5])
                 self.setTRange(vars[6], vars[7])
         if (type(vars) == type({})):
             try:
-                self.A = self.setA(vars['A'])
-                self.k0 = self.setK0(vars['k0'])
-                self.delta = self.setDelta(vars['delta'])
-                self.s = self.setS(vars['s'])
-                self.n = self.setN(vars['n'])
-                self.alpha = self.setAlpha(vars['alpha'])
+                self.setA(vars['A'])
+                self.setK0(vars['k0'])
+                self.setDelta(vars['delta'])
+                self.setS(vars['s'])
+                self.setN(vars['n'])
+                self.setAlpha(vars['alpha'])
                 self.setTRange(vars['t0'], vars['tmax'])
             except KeyError:
                 raise ValueError("Your dictionary must have the keys A, k0, delta, s, n, alpha, t0, and tmax")
