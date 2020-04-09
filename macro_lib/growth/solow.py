@@ -234,4 +234,4 @@ class solow:
         # update t
         self._time_passed += 1
         #update y
-        self._y[1] = self._A * (self._k ** self._alpha)
+        self._y[self._time_passed] = self._A * (self._k ** self._alpha)
