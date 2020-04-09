@@ -21,12 +21,21 @@ with a law of motion:
     I(t) = sY(t)
     C(t) = (1-s)Y(t)
     K(t+1) = (1-delta)K(t) + I(t)
-    N(t+1) = (1+n)N(t)
+    L(t+1) = (1+n)L(t)
+
+we can derive the law of motion for k(t) capital per capita:
+    k(t+1) = K(t+1)/N(t+1)
+           = ((1-delta)K(t) + I(t))/ (1+n)N(t)
+           = (1-delta)/(1+n) * k(t) + s/(1+n) A*K_t^alpha
+
+as well as per capita output:
+    y(t) = Y(t)/N(t)
+         = Ak_t^alpha
 
 where, I(t): total investment at time t
        C(t): total consumption at time t
        K(t): total capital at time t
-       N(t): total population at time t
+       L(t): total population at time t
           s: the saving rate
       delta: rate of capital depreciation
           n: rate of population growth
@@ -48,6 +57,7 @@ class solow:
     def __init__(self, A=2.87, k0=3.5, delta = 0.08, s = 0.1, n = 0.015, alpha = 0.36, t0 = 1956, tmax = 2060):
         self._A = A
         self._k0 = k0
+        self._k = k0
         self._delta = delta
         self._s = s
         self._n = n
@@ -55,7 +65,9 @@ class solow:
         self._t0 = t0
         self._tmax = tmax
         self._t = range(t0, tmax + 1)
-        self._Y = np.zeros(len(self._t))
+        self._y = np.zeros(len(self._t))
+        self._y[0] = self._A * (self._k0 ** self._alpha)
+        self._time_passed = 0
 
     '''
     this method returns all the variables in this model, which includes A, k0,
@@ -71,7 +83,7 @@ class solow:
             'alpha': self._alpha,
             't0' : self._t0,
             'tmax': self._tmax,
-            'Y' : self._Y,
+            'y' : self._y,
             't' : self._t }
     
     '''
@@ -146,7 +158,7 @@ class solow:
     setter for N (population growth rate)
     '''
     def setN(self,n):
-        self.n_n = n
+        self._n = n
     
     '''
     setter for alpha (output elasticity of capital)
@@ -176,7 +188,9 @@ class solow:
     TO BE IMPLEMENTED
     '''
     def simulate(self):
-        pass
+        for t in self._t:
+            self._update()
+        return [self._y, self._t]
 
     '''
     Plot the prediction using matlibplot. x-axis would be year, y-axis would 
@@ -189,11 +203,9 @@ class solow:
 
     '''
     store the output as a pandas dataframe
-
-    TO BE IMPLEMENTED
     '''
     def to_df(self):
-        pass
+        return pd.DataFrame({'year' : self._t, 'gdp_per_capita' : self._y})
 
     '''
     export the output as a csv file to the user-provided location
@@ -205,6 +217,8 @@ class solow:
     
     '''
     lunch the GUI, that enables more user-friendly interaction with the software
+    
+    TO BE IMPLEMENTED
     '''
     def gui(self):
         pass
@@ -215,4 +229,9 @@ class solow:
     TO BE IMPLEMENTED
     '''
     def _update(self):
-        pass
+        #update k
+        self._k = (1-self._delta)/(1+self._n) * self._k + (self._s)/(1+n) * self._A * (self._k ** self._alpha)
+        # update t
+        self._time_passed += 1
+        #update y
+        self._y[1] = self._A * (self._k ** self._alpha)
